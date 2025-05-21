@@ -142,7 +142,9 @@ class _AddPurchaseScreenState extends State<AddPurchaseScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Add Purchase')),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.only(
+          left: 16.0, right: 16.0, top: 16.0, bottom: MediaQuery.of(context).padding.bottom + 16.0,
+        ),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
