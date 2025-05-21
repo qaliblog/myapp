@@ -49,12 +49,21 @@ class _AddSaleScreenState extends State<AddSaleScreen> {
     final database = await DatabaseHelper.getDatabase();
 
     await database.transaction((txn) async {
+      DateTime? saleDate;
+      if (_dateController.text.isEmpty) {
+        saleDate = DateTime.now();
+      } else {
+        try {
+          saleDate = DateTime.parse(_dateController.text);
+        } catch (e) {
+          // Handle parsing error, maybe show a message to the user
+          print('Error parsing date: $e');
+          saleDate = DateTime.now(); // Default to current date on error
+        }
+      }
       final saleId = await txn.insert('sales', {
-        'buyer_name':
-            _buyerNameController.text.isEmpty ? null : _buyerNameController.text,
-        'sale_date': _dateController.text.isEmpty
-            ? DateTime.now().toIso8601String()
-            : _dateController.text,
+        'buyer_name': _buyerNameController.text.isEmpty ? 'Anonymous Buyer' : _buyerNameController.text,
+        'sale_date': saleDate.toIso8601String(),
       });
 
       for (final entry in _selectedProducts.entries) {

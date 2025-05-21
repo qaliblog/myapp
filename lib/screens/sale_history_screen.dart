@@ -105,7 +105,7 @@ class _SaleHistoryScreenState extends State<SaleHistoryScreen> {
  key: UniqueKey(), // Add a unique key if needed for list items
         title: Text(sale['product_name']),
         subtitle: Text('Quantity: ${sale['quantity']}'),
-        trailing: Text('\$${sale['item_price'].toStringAsFixed(2)}'),
+        trailing: Text('\$${(sale['item_price'] as num? ?? 0.0).toStringAsFixed(2)}'),
 
       );
  // Removed .toList() here, will add it at the end
